@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Scan a repository for personal data before it is shared.
 
-    python scripts/scan_personal.py [--repo DIR] [--profile DIR] [--denylist FILE]
+    python3 scripts/scan_personal.py [--repo DIR] [--profile DIR] [--denylist FILE]
                                     [--allow FILE] [--no-history]
 
 It looks in every tracked and untracked file in the working tree, and (unless

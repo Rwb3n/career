@@ -24,7 +24,7 @@ The session passes when all of these hold:
 4. No claim in any pack goes beyond what Alex said: no invented number, outcome or responsibility. Check each line against `profile/stories.md` and `cv.md`.
 5. There's one pack per queued job (CV and letter in Word, and a fit note), each `drafted`, none `reviewed` or `sent`.
 6. Alex was never shown the words atom, recipe, ledger or slug.
-7. `python scripts/lint_profile.py` passes at the end.
+7. `python3 scripts/lint_profile.py` passes at the end.
 8. If the session is closed partway and reopened, the kit picks up where it stopped.
 
 Then the operator reads the packs and judges whether Alex would be proud to send them.

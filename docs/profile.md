@@ -5,7 +5,7 @@ Your profile is everything the kit knows about you: your history, your stories, 
 **Nothing personal is written until the privacy check passes.** Every step that would write to `profile/` first runs:
 
 ```
-python scripts/privacy_check.py
+python3 scripts/privacy_check.py
 ```
 
 It exits 0 only when it has confirmed the repository is private. It exits 1 when the repository is public, and 2 when it can't tell. On 1 or 2 the kit stops and shows the message, which says how to fix it. See `docs/privacy.md`.
@@ -28,7 +28,7 @@ profile/
   packs/<slug>/       one pack per job: CV, cover letter, fit note
 ```
 
-The kit ships with `profile/` holding blank files. `python scripts/lint_profile.py` checks the profile against `schemas/`.
+The kit ships with `profile/` holding blank files. `python3 scripts/lint_profile.py` checks the profile against `schemas/`.
 
 ## profile.json
 

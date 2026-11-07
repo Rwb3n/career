@@ -9,7 +9,7 @@ For each job in `profile/jobs/` with `triage: undecided` (or the ones named in `
 
 ## Step 0: Privacy check
 
-Run `python scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes.
+Run `python3 scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes.
 
 ## Step 1: Load what's known
 
@@ -81,7 +81,7 @@ With a yes, add it, with their words in `said` and today's date in `as_of`:
 
 Likewise, if what they want becomes clear ("I'd love more jobs like the Northwind one"), offer to add it to `targets.json` (`role_anchor.in`, `domains.in`).
 
-Run `python scripts/lint_profile.py profile` after writing and fix what it reports.
+Run `python3 scripts/lint_profile.py profile` after writing and fix what it reports.
 
 ## Step 6: Next
 

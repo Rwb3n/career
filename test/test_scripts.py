@@ -1,9 +1,10 @@
 """Tests for the profile lint and the personal-data scan.
 
-    python -m unittest discover -s test
+    python3 -m unittest discover -s test
 """
 
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -192,6 +193,22 @@ class PrivacyCheckTests(unittest.TestCase):
                     "ssh://git@github.com/acme/career", "http://local_proxy@127.0.0.1:41923/git/acme/career"):
             self.assertEqual(self.pc.owner_repo(url), ("acme", "career"), url)
         self.assertIsNone(self.pc.owner_repo("https://gitlab.com/acme/career.git"))
+
+    def test_proxied_not_found_is_not_trusted(self):
+        pc = self.pc
+        saved = (pc.git, pc.via_gh, pc.via_api, dict(os.environ))
+        try:
+            os.environ.pop("GH_TOKEN", None)
+            os.environ.pop("GITHUB_TOKEN", None)
+            pc.via_gh = lambda o, r: None
+            pc.via_api = lambda o, r, token=None: (True, "the GitHub API (not visible publicly)")
+            for url, want in (("http://proxy@127.0.0.1:9/git/acme/career", 2), ("https://github.com/acme/career", 0)):
+                pc.git = lambda *a, u=url: "origin" if a == ("remote",) else u
+                self.assertEqual(pc.main(), want, url)
+        finally:
+            pc.git, pc.via_gh, pc.via_api = saved[:3]
+            os.environ.clear()
+            os.environ.update(saved[3])
 
     def test_no_remote_cannot_tell(self):
         import os

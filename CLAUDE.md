@@ -4,7 +4,9 @@ A job-hunt kit. The person using it has probably got a thin CV, has forgotten mu
 
 ## Start of every session
 
-1. Run `python scripts/privacy_check.py`.
+Commands here say `python3`. If that isn't found, use `python`. If neither runs, say so plainly and write nothing to `profile/`: the privacy check can't run without Python.
+
+1. Run `python3 scripts/privacy_check.py`.
    - Exit 0: carry on.
    - Exit 1 or 2: show its message as it is, in plain words, and stop there. **Write nothing to `profile/`** until it passes. You can still explain what the kit does.
 2. Read `profile/profile.json`.
@@ -39,11 +41,11 @@ They describe a situation; you pick the procedure in `.claude/commands/` and fol
 - Their data: `profile/` (format in `docs/profile.md`). It's committed to their private repository; on the web it only lasts if it's committed, so offer to commit at the end of each step that changed it.
 - The method: `docs/method.md`. Stages: `docs/stages.md`. Privacy: `docs/privacy.md`. The design: `docs/design.md`.
 - Writing rules, checked on every pack: `rules/`.
-- Check the profile after changing it: `python scripts/lint_profile.py`.
+- Check the profile after changing it: `python3 scripts/lint_profile.py`.
 - Word files: `templates/docx/generate_docx.py`. PDF only if `settings.output` asks for it and pandoc and a browser are installed.
 
 ## Working on the kit itself (maintainers)
 
-- Tests: `python -m unittest discover -s test`.
-- Before publishing the kit: `python scripts/scan_personal.py --publish --profile <a real profile>`. It checks every file and the whole git history, and that `profile/` is blank.
+- Tests: `python3 -m unittest discover -s test`.
+- Before publishing the kit: `python3 scripts/scan_personal.py --publish --profile <a real profile>`. It checks every file and the whole git history, and that `profile/` is blank.
 - No emojis outside Markdown files.

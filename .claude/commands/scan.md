@@ -17,7 +17,7 @@ Quality check before sending, typically after the user has edited a pack. Scans 
 
 ## Step 0: Privacy check
 
-Run `python scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes. (This procedure updates `recipe.json` and may edit the pack.)
+Run `python3 scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes. (This procedure updates `recipe.json` and may edit the pack.)
 
 ## Step 1: Load
 

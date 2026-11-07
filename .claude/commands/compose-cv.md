@@ -21,7 +21,7 @@ To the user, this is "your CV for the Acme job". Never show them atom ids, tiers
 
 ## Step 0: Privacy check
 
-Run `python scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes.
+Run `python3 scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes.
 
 ## Step 1: Load
 
@@ -44,7 +44,7 @@ Then the job: `profile/jobs/<slug>.md` (front matter gives `source-url`, `apply-
 
 **Anything new?** Ask, in plain words: "Before I draft this one: anything you've remembered since we last talked?" If yes, run `/recall` for it first. Skip this question when coming straight from the recall interview.
 
-If a required file is missing or fails to parse, stop and say which. Suggest `python scripts/lint_profile.py profile`.
+If a required file is missing or fails to parse, stop and say which. Suggest `python3 scripts/lint_profile.py profile`.
 
 ---
 
@@ -271,7 +271,7 @@ Must validate against `schemas/recipe.schema.json`. In outline:
 Run the central generator (never a per-pack copy):
 
 ```
-python templates/docx/generate_docx.py "profile/packs/<slug>/CV-<slug>.md" "profile/packs/<slug>/CV-<slug>.docx"
+python3 templates/docx/generate_docx.py "profile/packs/<slug>/CV-<slug>.md" "profile/packs/<slug>/CV-<slug>.docx"
 ```
 
 The .docx is single-column, uses system fonts, keeps contact details in the body, uses Word heading styles for sections and native list items for bullets, and has no images. If the output breaks any of this, fix `templates/docx/generate_docx.py` itself.

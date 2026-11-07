@@ -11,7 +11,7 @@ Turns each job the user gives you into `profile/jobs/<slug>.md`: the ad's text w
 
 ## Step 0: Privacy check
 
-Run `python scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes.
+Run `python3 scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes.
 
 ## Step 1: Sort what you were given
 

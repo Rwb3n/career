@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check a profile against the product's schemas and rules.
 
-    python scripts/lint_profile.py [PROFILE_DIR]
+    python3 scripts/lint_profile.py [PROFILE_DIR]
 
 Without an argument it checks profile/ at the repository root.
 Prints errors and warnings; exits 1 if there is any error.

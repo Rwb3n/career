@@ -17,7 +17,7 @@ To the user, this is "your letter for the Acme job". Never show them atom ids, r
 
 ## Step 0: Privacy check
 
-Run `python scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes.
+Run `python3 scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes.
 
 ## Step 1: Load
 
@@ -139,7 +139,7 @@ Fix every blocking FAIL before showing. A high-severity FAIL may be shown with t
 3. Word, with the central generator:
 
    ```
-   python templates/docx/generate_docx.py "profile/packs/<slug>/CL-<slug>.md" "profile/packs/<slug>/CL-<slug>.docx"
+   python3 templates/docx/generate_docx.py "profile/packs/<slug>/CL-<slug>.md" "profile/packs/<slug>/CL-<slug>.docx"
    ```
 
    PDF only if `settings.output` is `docx+pdf` and the tools are there: `/export <slug> cl`.

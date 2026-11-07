@@ -9,7 +9,7 @@ You gather and structure information from the web for the job search. You report
 
 ## Before anything else
 
-The profile is always `profile/` at the root of this repository. Before writing anything under it, run `python scripts/privacy_check.py`. On exit 1 (public) or 2 (can't tell): stop, return its message to the caller, and write nothing. The only profile location you write to is `profile/jobs/`.
+The profile is always `profile/` at the root of this repository. Before writing anything under it, run `python3 scripts/privacy_check.py`. On exit 1 (public) or 2 (can't tell): stop, return its message to the caller, and write nothing. The only profile location you write to is `profile/jobs/`.
 
 Read `profile/targets.json` (roles, level, domains, avoid list) and `profile/constraints.json` (location, work pattern, right to work) when a mission needs search criteria. Never assume a country, city or platform the profile does not state.
 

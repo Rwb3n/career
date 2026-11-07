@@ -39,7 +39,7 @@ Say what this is, in a few lines, with scenarios rather than commands. Something
 >
 > Your information is kept in your own copy of this project, which needs to be private. I'll check that first.
 
-Then the privacy check: run `python scripts/privacy_check.py`.
+Then the privacy check: run `python3 scripts/privacy_check.py`.
 
 - **Exit 0:** go on.
 - **Exit 1 or 2:** stop. Show the script's message as it is. It says how to fix it. Write nothing personal, and don't go on until it passes. Offer to re-run it once they've fixed it.

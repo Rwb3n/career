@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Confirm this repository is private before anything personal is written.
 
-    python scripts/privacy_check.py
+    python3 scripts/privacy_check.py
 
 Exit codes:
   0  private (confirmed), or local-only by explicit choice (see below)
@@ -55,7 +55,17 @@ def git(*args):
 
 
 def owner_repo(url: str):
-    """Return (owner, repo) for a GitHub remote, or None.
+    """Return (owner, repo) for a GitHub remote, or None. See remote_kind()."""
+    found = parse_remote(url)
+    return found[:2] if found else None
+
+
+def parse_remote(url: str):
+    """Return (owner, repo, direct) for a GitHub remote, or None.
+
+    direct is True for a github.com address and False for a proxied one,
+    where owner/repo is read from the path and can't be confirmed by an
+    anonymous "not found".
 
     Handles https://github.com/o/r(.git), git@github.com:o/r(.git),
     ssh://git@github.com/o/r, and proxied remotes whose path ends /git/o/r
@@ -63,10 +73,10 @@ def owner_repo(url: str):
     """
     m = re.match(r"^(?:https?://(?:[^@/]+@)?github\.com/|git@github\.com:|ssh://git@github\.com/)([^/]+)/([^/]+?)(?:\.git)?/?$", url)
     if m:
-        return m.group(1), m.group(2)
+        return m.group(1), m.group(2), True
     m = re.search(r"/git/([^/]+)/([^/]+?)(?:\.git)?/?$", url)
     if m:
-        return m.group(1), m.group(2)
+        return m.group(1), m.group(2), False
     return None
 
 
@@ -121,11 +131,12 @@ def main():
         return 2
 
     url = git("remote", "get-url", "origin") or git("remote", "get-url", remotes[0])
-    parsed = owner_repo(url)
+    parsed = parse_remote(url)
     if not parsed:
         print(FIX_UNKNOWN.format(why="The remote isn't a GitHub address this check understands."))
         return 2
-    owner, repo = parsed
+    owner, repo, direct = parsed
+    print(f"Checking {owner}/{repo} ({'github.com address' if direct else 'proxied address'}).")
 
     result = via_gh(owner, repo)
     token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
@@ -136,6 +147,9 @@ def main():
         r = via_api(owner, repo)
         if r[0] == "unknown":
             print(FIX_UNKNOWN.format(why=f"Checked {owner}/{repo}: {r[1]}."))
+            return 2
+        if r[0] is True and not direct:
+            print(FIX_UNKNOWN.format(why=f"{owner}/{repo} isn't visible publicly, but its name was read from a proxied address, so \"not found\" could also mean the name is wrong."))
             return 2
         result = r
 

@@ -30,7 +30,7 @@ It writes `profile/stories.md` (their stories, in their words), `profile/atoms.j
 
 ## Step 0: Privacy check
 
-Run `python scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes.
+Run `python3 scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes.
 
 ## Step 1: Load and set up
 
@@ -160,7 +160,7 @@ Also, as they come up, and confirmed the same way:
 
 **Existing lines are not changed** unless the user asks. Then change the text, set `amended` to today and `amend_reason` to the reason in plain words, and keep both.
 
-After writing, run `python scripts/lint_profile.py profile` and fix what it reports in what you wrote.
+After writing, run `python3 scripts/lint_profile.py profile` and fix what it reports in what you wrote.
 
 ## Step 6: The basics the packs need
 

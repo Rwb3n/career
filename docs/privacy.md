@@ -11,7 +11,7 @@ Use **"Use this template"** and choose **Private**. Don't use **Fork**: GitHub m
 Before anything is written to `profile/`, the kit runs:
 
 ```
-python scripts/privacy_check.py
+python3 scripts/privacy_check.py
 ```
 
 It reads your repository's GitHub address and asks GitHub whether it's private:
@@ -41,7 +41,7 @@ If you clone your private copy to your own computer, the check works the same wa
 ## For maintainers: before publishing the kit
 
 ```
-python scripts/scan_personal.py --publish --profile <a real profile folder> [--denylist <file>]
+python3 scripts/scan_personal.py --publish --profile <a real profile folder> [--denylist <file>]
 ```
 
 - It builds a list of identifying terms from the profile (name, email, phone, links, location, employers, institutions, credential ids, never-name names, salary figures). Add your own with `--denylist`; keep that file outside the repository, because it's personal data too.

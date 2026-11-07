@@ -15,7 +15,7 @@ Turn a pack's CV and/or letter from Markdown into Word (`.docx`), and into PDF o
 
 ## Step 0: Privacy check
 
-Run `python scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes.
+Run `python3 scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes.
 
 ## Step 1: Resolve the files
 
@@ -29,8 +29,8 @@ Read `profile/profile.json` for `settings.output`, `settings.paper`, `settings.c
 
 ## Step 2: Word (always)
 
-- `python templates/docx/generate_docx.py "profile/packs/<slug>/CV-<slug>.md" "profile/packs/<slug>/CV-<slug>.docx"`
-- `python templates/docx/generate_docx.py "profile/packs/<slug>/CL-<slug>.md" "profile/packs/<slug>/CL-<slug>.docx"`
+- `python3 templates/docx/generate_docx.py "profile/packs/<slug>/CV-<slug>.md" "profile/packs/<slug>/CV-<slug>.docx"`
+- `python3 templates/docx/generate_docx.py "profile/packs/<slug>/CL-<slug>.md" "profile/packs/<slug>/CL-<slug>.docx"`
 
 If `python-docx` is missing, run `pip install -r requirements.txt` once and retry. If one export fails, report it and carry on with the rest.
 
@@ -40,8 +40,8 @@ Only when `settings.output` is `docx+pdf`. First check the tools: `pandoc --vers
 
 If both are there:
 
-- CV: `python templates/pdf/export.py "profile/packs/<slug>/CV-<slug>.md" cv --paper <settings.paper>`
-- Letter: `python templates/pdf/export.py "profile/packs/<slug>/CL-<slug>.md" cl --paper <settings.paper>`
+- CV: `python3 templates/pdf/export.py "profile/packs/<slug>/CV-<slug>.md" cv --paper <settings.paper>`
+- Letter: `python3 templates/pdf/export.py "profile/packs/<slug>/CL-<slug>.md" cl --paper <settings.paper>`
 
 The PDF goes next to its source, same name, `.pdf`.
 

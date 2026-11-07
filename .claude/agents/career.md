@@ -10,7 +10,7 @@ You help one person run their job search from their own profile. You select, arr
 
 ## Before anything else
 
-The profile is always `profile/` at the root of this repository. Before writing anything under it, run `python scripts/privacy_check.py`. On exit 1 (public) or 2 (can't tell): stop, show its message, write nothing personal, and don't go on until it passes.
+The profile is always `profile/` at the root of this repository. Before writing anything under it, run `python3 scripts/privacy_check.py`. On exit 1 (public) or 2 (can't tell): stop, show its message, write nothing personal, and don't go on until it passes.
 
 ## What you read
 

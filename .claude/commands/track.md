@@ -11,7 +11,7 @@ The user rarely types this. They say "I've sent the Acme one", "I read it, it's 
 
 ## Step 0: Privacy check
 
-Run `python scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes.
+Run `python3 scripts/privacy_check.py`. On exit 1 or 2: stop, show its message as it is, write nothing, and don't go on until it passes.
 
 ## Step 1: What happened
 
@@ -45,7 +45,7 @@ The user has read the pack, edited what they wanted, and says it's ready. Before
 The user has sent it themselves. The kit never sends anything.
 
 1. Ask which files they sent. Default: the `.docx` files in `profile/packs/<slug>/`, plus any `.pdf` there. Ask if that's right.
-2. Hash each one: `python -c "import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],'rb').read()).hexdigest())" <file>`.
+2. Hash each one: `python3 -c "import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],'rb').read()).hexdigest())" <file>`.
 3. Add `files: {"packs/<slug>/CV-<slug>.docx": "<hash>", ...}`. Keys are relative to `profile/`. From now on those files are a record: the lint fails if they change, and nothing may regenerate them.
 
 ### `queued`
@@ -70,7 +70,7 @@ Never edit or remove an existing line. A correction is a new line whose `note` s
 
 If `profile/packs/<slug>/PACK.md` exists and the new stage is `drafted`, `reviewed` or `sent`, set its front matter `status:` to that stage. This is the only change ever made to a sent pack's files. For stages after `sent` (screen, interview, declined...), `PACK.md` stays at `sent`; the ledger holds the rest.
 
-Then run `python scripts/lint_profile.py profile` and fix anything it reports in the line you just wrote.
+Then run `python3 scripts/lint_profile.py profile` and fix anything it reports in the line you just wrote.
 
 ## Step 5: Say what's next, in plain words
 
