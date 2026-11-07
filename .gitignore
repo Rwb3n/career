@@ -1,0 +1,7 @@
+# profile/ IS committed: in your private copy it's where your data lasts
+# between sessions. The privacy check guards it (docs/privacy.md).
+
+__pycache__/
+*.pyc
+.claude/settings.local.json
+~$*.docx

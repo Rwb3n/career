@@ -1,0 +1,15 @@
+{
+  "role_anchor": {
+    "in": [],
+    "out": [],
+    "note": ""
+  },
+  "years_gate": {},
+  "domains": {
+    "in": [],
+    "out": []
+  },
+  "avoid": [],
+  "claim_domains": [],
+  "archetypes": []
+}

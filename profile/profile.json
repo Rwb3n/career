@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "created": "",
+  "identity": {
+    "name": "",
+    "headline": "",
+    "location": "",
+    "email": "",
+    "phone": "",
+    "links": [],
+    "languages": []
+  },
+  "settings": {
+    "paper": "A4",
+    "spelling": "en-GB",
+    "cv_max_pages": 2,
+    "cl_max_pages": 1,
+    "rules_on": [],
+    "rules_off": [],
+    "output": "docx"
+  },
+  "welcome_done": false
+}

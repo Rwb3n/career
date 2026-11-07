@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "id": "no-sales-roles",
+      "kind": "targeting",
+      "statement": "No roles where the main job is selling",
+      "voice": "user",
+      "said": "i dont want to sell",
+      "as_of": "2026-01-10"
+    },
+    {
+      "id": "outcome-first",
+      "kind": "voice",
+      "statement": "Every claim leads with what changed for the people using the system, then the business result",
+      "voice": "user",
+      "said": "say what changed for people first",
+      "as_of": "2026-01-10"
+    }
+  ]
+}

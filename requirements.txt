@@ -1,0 +1,5 @@
+# Python packages. Install with: pip install -r requirements.txt
+# Also needed, outside Python: pandoc (https://pandoc.org) and a Chromium-based browser (Chrome, Edge, Chromium or Brave) for PDF export.
+python-docx>=1.1
+# Optional: lets scripts/lint_profile.py validate profile files against schemas/.
+jsonschema>=4.18

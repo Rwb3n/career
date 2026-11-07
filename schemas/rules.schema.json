@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "rules.schema.json",
+  "title": "Rule file",
+  "description": "Shape shared by rules/submission-rules.json, rules/composition-rules.json and a profile's rules-local.json. Product rules carry `why` and `default`; a local rule usually carries `origin` (the user's own words) instead.",
+  "type": "object",
+  "required": ["rules"],
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string" },
+        "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+        "description": { "type": "string" },
+        "how_to_use": { "type": "string" }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/rule" }
+    },
+    "pre_submission_checklist": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "rule": {
+      "type": "object",
+      "required": ["id", "name", "severity", "rule"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9]*-[A-Za-z0-9-]+$",
+          "description": "SR-xx for submission rules, CR-xx for composition rules, any PREFIX-xx for local rules (LR-xx suggested)."
+        },
+        "name": { "type": "string", "minLength": 1 },
+        "severity": { "enum": ["blocking", "high", "medium", "low"] },
+        "default": {
+          "type": "boolean",
+          "description": "Product rules only. false means the rule is a style preference and runs only when its id is in profile.json settings.rules_on."
+        },
+        "rule": { "type": "string", "minLength": 1 },
+        "detail": { "type": "string" },
+        "sub_checks": { "type": "array", "items": { "type": "string" } },
+        "banned": { "type": "array", "items": { "type": "string" } },
+        "permitted": { "type": "array", "items": { "type": "string" } },
+        "test": { "type": "string" },
+        "why": { "type": "string", "description": "One neutral sentence on the failure the rule prevents." },
+        "origin": { "type": "string", "description": "Local rules only: the user's own words, and when, that created the rule." }
+      }
+    }
+  }
+}

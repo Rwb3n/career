@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "profile.json",
+  "type": "object",
+  "required": ["schema_version", "identity", "settings"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "created": { "type": "string" },
+    "identity": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "headline": { "type": "string" },
+        "location": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "links": { "type": "array", "items": { "type": "object", "required": ["label", "url"], "properties": { "label": { "type": "string" }, "url": { "type": "string" } } } },
+        "languages": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "properties": {
+        "paper": { "enum": ["A4", "Letter"] },
+        "spelling": { "type": "string" },
+        "cv_max_pages": { "type": "integer", "minimum": 1 },
+        "cl_max_pages": { "type": "integer", "minimum": 1 },
+        "output": { "enum": ["docx", "docx+pdf"] },
+        "rules_on": { "type": "array", "items": { "type": "string" }, "description": "ids of product rules shipped with default:false that the user has switched on" },
+        "rules_off": { "type": "array", "items": { "type": "string" }, "description": "ids of product rules the user has switched off" }
+      }
+    },
+    "welcome_done": { "type": "boolean" }
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "_meta": {
+    "type": "composition-rules",
+    "version": "1.0.0",
+    "description": "How a CV or cover letter is assembled from the user's atoms: which claims may appear, how they are worded, and the document format that applicant tracking systems (ATS) parse cleanly. Submission rules check the finished text; these rules govern building it.",
+    "how_to_use": "Apply every rule while selecting atoms and laying out the document, then confirm each as PASS or FAIL before running the submission rules. The rules read the user's profile: claim domains from targets.json, never-name items from constraints.json, project status from atoms.json, spelling and page limits from profile.json settings. A rule with \"default\": false runs only when its id is in profile.json settings.rules_on."
+  },
+  "rules": [
+    {
+      "id": "CR-01",
+      "name": "One claim domain per claim",
+      "severity": "blocking",
+      "default": true,
+      "rule": "Every claim belongs to exactly one of the claim domains in profile/targets.json claim_domains, recorded as claim_domain on its atom. A claim must not borrow terms from another domain. Check claim_domain on each atom before composing, and keep claims from different domains in separate sentences.",
+      "banned": [
+        "Placing a claim about organising training on a technology directly above a list of things the user built with that technology, worded so the two read as one skill"
+      ],
+      "test": "For each sentence, name its one claim domain. Does any word in it belong to a different domain?",
+      "why": "Blurring domains turns true claims into an unearned impression of skill that the user cannot defend at interview."
+    },
+    {
+      "id": "CR-02",
+      "name": "Defensible, not just true",
+      "severity": "blocking",
+      "default": true,
+      "rule": "A claim the user can narrate under questioning may appear. A number the user cannot reconstruct (where it came from, what it was measured against, when) may not, even if it is true.",
+      "permitted": [
+        "Duplicate customer records fell from about 1 in 8 to under 1 in 30, measured by the monthly duplicate report before and after the clean-up"
+      ],
+      "banned": [
+        "Improved efficiency by 37% (with no baseline, method or source the user can name)"
+      ],
+      "test": "Ask the user, or check profile/stories.md: where does this figure come from, and could they explain it in two sentences to an interviewer?",
+      "why": "A precise figure the user cannot explain reads as invented and discredits every other number in the document."
+    },
+    {
+      "id": "CR-03",
+      "name": "Tense convention",
+      "severity": "high",
+      "default": true,
+      "rule": "Past tense throughout. For a role whose is_current is true, work still in flight is marked with an explicit word (Currently, In progress) rather than a present participle. Mixed tense within a single role is a drafting tell.",
+      "test": "Does each role use one tense? Is every piece of in-flight work explicitly marked?",
+      "why": "Consistent tense tells the reader what is finished and what is ongoing without making them work it out."
+    },
+    {
+      "id": "CR-04",
+      "name": "Never name anything on the never-name list",
+      "severity": "blocking",
+      "default": true,
+      "rule": "No name listed in any profile/constraints.json item of kind never-name may appear in a composition: not in full, abbreviated, or as an obvious variant. Atoms may still carry these names; de-name them at compose time with a neutral description (a business support programme, a public-sector client, an internal platform).",
+      "test": "Search the composed text for every name, and each abbreviation of it, in the never-name items.",
+      "why": "Naming an employer's internal programme, client or platform can breach a confidentiality clause and tells the reader the user will do the same with theirs."
+    },
+    {
+      "id": "CR-05",
+      "name": "No vanity counts",
+      "severity": "blocking",
+      "default": true,
+      "rule": "Compose only numbers that describe an outcome, external validation, or money and scale. Never compose a count of what the user produced. This is the composition-time side of submission rule SR-01; apply the same banned and permitted lists.",
+      "test": "Does the number describe something that changed in the world, or something the user produced? If produced, do not select it.",
+      "why": "Output counts read as padding and push real outcomes out of the reader's attention."
+    },
+    {
+      "id": "CR-06",
+      "name": "Check live status before composing a project",
+      "severity": "blocking",
+      "default": true,
+      "rule": "Before composing a project atom, read its live and url fields. Compose a URL only if it opens today. Describe a project as live, running or downloadable only if live is true. If the status is unclear, ask the user and record the answer on the atom.",
+      "test": "For every project in the composition, is live true and does the URL open?",
+      "why": "Project status goes stale between applications, and a dead link or a retired product described as running damages trust in the rest of the document."
+    },
+    {
+      "id": "CR-07",
+      "name": "Voice default: people, then business, then tools",
+      "severity": "high",
+      "default": true,
+      "rule": "Lead each claim with what changed for the people using the work, then the result for the business. Tools and activities come last, if at all. In cover letters, leave out tool-level detail entirely (which channel, inbox, ticket queue or field something sat in).",
+      "banned": [
+        "Built three dashboards in a reporting tool using data from the order system",
+        "Moved requests out of a shared inbox into a ticket queue"
+      ],
+      "permitted": [
+        "Store managers could see stock levels without asking head office; emergency orders fell by half",
+        "Requests had one route in, and the team answered them in a day instead of a week"
+      ],
+      "test": "Read the first five words of each bullet and each letter paragraph. Do they name a person or a result, or a tool or an activity?",
+      "why": "Readers hire for outcomes, and a claim that opens with tooling makes them work out the value themselves, which most will not do."
+    },
+    {
+      "id": "CR-08",
+      "name": "Headline mirrors the target role",
+      "severity": "high",
+      "default": true,
+      "rule": "Put a one-line headline below the user's name that mirrors the target role title. Format: [Target role title] | [Key differentiator]. The differentiator must come from an atom.",
+      "permitted": [
+        "Business Analyst | Process redesign and data quality"
+      ],
+      "test": "Does the headline contain the job title as written in the job description?",
+      "why": "Applicant tracking systems weight title matches heavily, and a missing title can drop the CV below the recruiter's cut-off."
+    },
+    {
+      "id": "CR-09",
+      "name": "Standard section headers only",
+      "severity": "blocking",
+      "default": true,
+      "rule": "Use only these section names: Summary, Skills, Certifications, Experience, Projects, Education, Languages. Order: identity block, Summary, Skills, Certifications, Experience, Projects, Education, Languages. Omit a section that has nothing in it.",
+      "banned": [
+        "What I Bring",
+        "Key Strengths",
+        "My Journey"
+      ],
+      "test": "Is every second-level heading one of the standard names?",
+      "why": "Parsers map standard headers to structured fields and drop content under creative headers into unstructured notes that recruiters do not search."
+    },
+    {
+      "id": "CR-10",
+      "name": "Skills grouped into labelled lines",
+      "severity": "blocking",
+      "default": true,
+      "rule": "The Skills section is 3 to 5 lines, each starting with a bold label chosen to fit the target role, followed by named tools and named techniques. Never one flat comma-separated run. 12 to 20 items in total; if there are more, cut rather than group harder. Keep exact job-description phrasing where atoms support it. No soft skills.",
+      "permitted": [
+        "**Analysis:** requirements gathering, process modelling, fit-gap analysis, user stories",
+        "**Data:** data cleansing and de-duplication, reporting, SQL",
+        "**Platforms:** a CRM platform (named, with certification if held), a ticketing tool, a spreadsheet tool",
+        "**Building:** low-code automation, API integration, scripting"
+      ],
+      "test": "Count the lines and items. Is every item a named tool or technique?",
+      "why": "Grouping keeps every keyword for the parser while making the list readable to the human who decides."
+    },
+    {
+      "id": "CR-11",
+      "name": "Experience in flat format",
+      "severity": "high",
+      "default": true,
+      "rule": "Each role is: line 1, the job title as a third-level heading (chosen from the role's title_canonical or title_variants, never invented); line 2, company and location; line 3, the date range in italics in one consistent format (Month Year to Month Year, or Year to Year); then bullets. Most recent role first. Roles with no selected bullets are left out.",
+      "test": "Does every role follow the same three-line header, with dates in one format?",
+      "why": "Parsers extract titles, employers and dates from a predictable layout, and inconsistent layouts produce wrong or missing employment history."
+    },
+    {
+      "id": "CR-12",
+      "name": "Contact details in the body, URLs as plain text",
+      "severity": "high",
+      "default": true,
+      "rule": "Put contact details in the document body directly under the name, never in a header or footer. Include location and working preference (for example: City (open to hybrid or remote)). Write URLs as plain text, not link syntax, separated by a vertical bar: linkedin.com/in/handle | github.com/handle.",
+      "test": "Is every contact detail in the body? Is every URL visible as text?",
+      "why": "Many parsers skip headers and footers and only read URLs that appear as plain text, so contact details placed elsewhere never reach the candidate record."
+    },
+    {
+      "id": "CR-13",
+      "name": "Languages as a standalone section",
+      "severity": "medium",
+      "default": true,
+      "rule": "List languages, from profile.json identity.languages, in their own Languages section with the level in brackets.",
+      "test": "Is there a Languages section, and are languages absent from Skills?",
+      "why": "Applicant tracking systems map a Languages section to a dedicated field that recruiters filter on."
+    },
+    {
+      "id": "CR-14",
+      "name": "No images, tables or text boxes",
+      "severity": "blocking",
+      "default": true,
+      "rule": "The CV is single-column text: no images, photos, icons, tables, columns or text boxes.",
+      "test": "Does the markdown contain any image, table or HTML layout element?",
+      "why": "These elements break parsing, and the text inside them is often lost entirely."
+    },
+    {
+      "id": "CR-15",
+      "name": "Only atom text",
+      "severity": "blocking",
+      "default": true,
+      "rule": "No claim may appear that is not sourced from a named atom or fragment in profile/atoms.json. If the document needs a claim that no atom supports, stop and propose a new atom for the user to confirm. No atom ids appear in the final text. Record every atom used in the recipe file.",
+      "test": "Can every sentence in the document be traced to an atom id in the recipe?",
+      "why": "Invented text is where false and indefensible claims enter, and a recipe that records the atoms lets the same CV be rebuilt and checked later."
+    }
+  ]
+}

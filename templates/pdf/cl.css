@@ -1,0 +1,82 @@
+/* Cover Letter Template -- Modern Accent (shared base with CV)
+   Same fonts, margins, accent. Simpler layout for prose.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+@page {
+    size: A4;
+    margin: 20mm;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Calibri', 'Arial', sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+    color: #1a1a1a;
+}
+
+/* Letterhead name -- if present */
+h1 {
+    font-size: 18pt;
+    font-weight: 700;
+    color: #1a365d;
+    margin: 0 0 4pt 0;
+    padding: 0;
+    border: none;
+}
+
+/* Section headings -- rare in CLs */
+h2 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #1a365d;
+    margin: 12pt 0 4pt 0;
+    padding: 0 0 3pt 0;
+    border-bottom: 1px solid #1a365d;
+}
+
+/* Body paragraphs -- the main content */
+p {
+    margin: 0 0 8pt 0;
+    text-align: left;
+}
+
+/* Links */
+a {
+    color: #1a365d;
+    text-decoration: none;
+}
+
+/* Strong */
+strong {
+    font-weight: 600;
+}
+
+/* Horizontal rules */
+hr {
+    border: none;
+    border-top: 1px solid #1a365d;
+    margin: 12pt 0;
+}
+
+/* Lists (rare in CLs) */
+ul {
+    margin: 4pt 0 8pt 0;
+    padding-left: 16pt;
+}
+
+li {
+    margin: 0 0 3pt 0;
+}
+
+/* Prevent page break in middle of paragraph */
+p {
+    page-break-inside: avoid;
+}

@@ -1,0 +1,144 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "description": "Anti-pattern library for CV and cover letter text: constructions that signal machine drafting, read as generic filler, or set the wrong tone. Scanned during composition, over every section including bullets.",
+    "usage": "Each anti-pattern has a pattern to look for, a description of why it hurts, and a bad and fixed example. The scan flags every match in the composed text with its id. The user decides whether to revise. Category 'claude-ism' means a pattern typical of AI assistant drafting, whichever assistant produced it."
+  },
+  "anti_patterns": [
+    {
+      "id": "ap-contrast-hook",
+      "pattern": "isn't X, it's Y / not X -- Y / not X; it's Y",
+      "category": "claude-ism",
+      "description": "False contrast that performs insight rather than delivering it. Creates a dramatic reveal where a plain statement would land harder.",
+      "example_bad": "This isn't a side project. It's a working product.",
+      "example_fix": "The scheduling app has run for a local club since spring.",
+      "severity": "high"
+    },
+    {
+      "id": "ap-not-just-but",
+      "pattern": "not just X, but Y / not only X, but also Y",
+      "category": "claude-ism",
+      "description": "False modesty escalator. Pretends to understate, then stacks. Reads as formulaic.",
+      "example_bad": "Not just an analyst, but a trusted advisor to the business.",
+      "example_fix": "Department heads asked me to review their process changes before sign-off.",
+      "severity": "high"
+    },
+    {
+      "id": "ap-superlative-stack",
+      "pattern": "truly / deeply / exceptionally / incredibly / remarkably + adjective",
+      "category": "claude-ism",
+      "description": "Adverb inflation. Intensifiers stand in for a fact that should speak for itself.",
+      "example_bad": "I am an incredibly thorough and deeply organised planner.",
+      "example_fix": "I planned the office move; the team lost no working days.",
+      "severity": "medium"
+    },
+    {
+      "id": "ap-performative-honesty",
+      "pattern": "I should be honest / to be candid / if I'm being transparent / I'll be direct",
+      "category": "claude-ism",
+      "description": "Announcing honesty instead of being honest. The preface undermines the candour it claims.",
+      "example_bad": "To be candid, I have not used this reporting tool before.",
+      "example_fix": "I have not used this reporting tool; I have built similar reports in two others.",
+      "severity": "medium"
+    },
+    {
+      "id": "ap-filler-transitions",
+      "pattern": "Furthermore / Additionally / Moreover / In addition / What's more",
+      "category": "generic-cliche",
+      "description": "Academic transition words. They add no meaning, consume word count, and signal template writing.",
+      "example_bad": "Moreover, I have worked with several reporting tools.",
+      "example_fix": "I rebuilt the monthly sales report in a new reporting tool; it now runs itself.",
+      "severity": "low"
+    },
+    {
+      "id": "ap-hedge-undercut",
+      "pattern": "I believe / I feel that / I think I can / I would say",
+      "category": "generic-cliche",
+      "description": "Hedging weakens claims. In a CV or cover letter, either the user did it or did not.",
+      "example_bad": "I feel that my organisational strengths would suit your team.",
+      "example_fix": "I set up the team rota that cut overtime by a fifth.",
+      "severity": "medium"
+    },
+    {
+      "id": "ap-passionate-about",
+      "pattern": "passionate about / passion for / driven by a passion",
+      "category": "generic-cliche",
+      "description": "Empty enthusiasm. Everyone claims passion. Evidence of sustained effort says it without the word.",
+      "example_bad": "I am passionate about data and its power to transform organisations.",
+      "example_fix": "I have run a weekly data clinic for colleagues for the past year.",
+      "severity": "high"
+    },
+    {
+      "id": "ap-leverage-synergy",
+      "pattern": "leverage / synergy / paradigm / ecosystem / holistic",
+      "category": "generic-cliche",
+      "description": "Corporate buzzwords. They mean nothing specific. Replace with what actually happened.",
+      "example_bad": "Leveraged digital tools to create holistic customer solutions.",
+      "example_fix": "Replaced the paper order form with an online one; orders arrived complete.",
+      "severity": "medium"
+    },
+    {
+      "id": "ap-dynamic-team-player",
+      "pattern": "dynamic / team player / results-driven / detail-oriented / self-starter",
+      "category": "generic-cliche",
+      "description": "CV filler words. Universally claimed, never differentiating. Show the quality through evidence instead.",
+      "example_bad": "A dynamic self-starter with a results-driven mindset.",
+      "example_fix": "I checked every supplier record before the migration and fixed 40 that would have failed.",
+      "severity": "high"
+    },
+    {
+      "id": "ap-exclamation-enthusiasm",
+      "pattern": "! in professional text / I'm excited to / thrilled to",
+      "category": "generic-cliche",
+      "description": "Forced enthusiasm. Calm confidence reads stronger than performed excitement in written applications.",
+      "example_bad": "I am so excited to apply for this position!",
+      "example_fix": "Your team is moving its customer records to a new platform; I led the same move at my last employer.",
+      "severity": "medium"
+    },
+    {
+      "id": "ap-unique-opportunity",
+      "pattern": "unique opportunity / once-in-a-lifetime / dream role",
+      "category": "generic-cliche",
+      "description": "Flattery disguised as enthusiasm. Comes across as desperate rather than considered.",
+      "example_bad": "This is my dream role and a once-in-a-lifetime chance.",
+      "example_fix": "The role combines process design and reporting, the two things I have done most in the last three years.",
+      "severity": "medium"
+    },
+    {
+      "id": "ap-em-dash-chain",
+      "pattern": "two or more em dashes (or raw double hyphens) in one paragraph",
+      "category": "claude-ism",
+      "description": "Assistants over-use dashes for parenthetical asides. Maximum one per paragraph. Two or more signal machine drafting. Replace the extras with commas, colons or full stops.",
+      "example_bad": "The new form -- launched in a month -- cut errors -- and staff liked it.",
+      "example_fix": "The new form launched in a month and cut errors. Staff liked it.",
+      "severity": "medium"
+    },
+    {
+      "id": "ap-triple-list-rhythm",
+      "pattern": "X, Y, and Z endings repeated across consecutive sentences or bullets",
+      "category": "claude-ism",
+      "description": "Assistants default to three-item lists. Natural writing varies sentence structure. Two consecutive tricolons is a flag.",
+      "example_bad": "I listen, question, and clarify. I plan, test, and deliver.",
+      "example_fix": "I ask questions until the problem is clear. Then I test a fix with the people who reported it.",
+      "severity": "low"
+    },
+    {
+      "id": "ap-lone-wolf-framing",
+      "pattern": "nobody else / I found it because I looked / that's how I work / not because anyone assigned it / nobody had bothered",
+      "category": "tone-miscalibration",
+      "description": "Frames initiative as isolation. Implies the team was asleep and the applicant is the only competent person. Many hiring cultures penalise this: confidence should be understated, results should speak, and collegiality matters. Frame initiative as a contribution to the team, not a contrast against it.",
+      "example_bad": "I was the only one who spotted the billing errors.",
+      "example_fix": "I raised the billing errors at the weekly review, and the team fixed them before month end.",
+      "severity": "high"
+    },
+    {
+      "id": "ap-tool-level-trivia",
+      "pattern": "which channels, tools or ticket mechanics a thing sat in: chat threads, shared inboxes, email chains, ticket counts, 'scattered across informal channels'",
+      "category": "tone-miscalibration",
+      "description": "Operational detail about tooling instead of the outcome for the business. In a cover letter the reader asks why it matters. Letters carry outcomes: what changed for the people using the work, what got simpler, what fell. Channel and tool detail belongs, at most, in a working log, not in a letter or a lead bullet.",
+      "example_bad": "I found that half of all requests were sitting in chat threads and shared inboxes.",
+      "example_fix": "Requests had no single route in. I gave them one; response times fell by a third.",
+      "severity": "high"
+    }
+  ]
+}

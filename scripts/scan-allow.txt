@@ -1,0 +1,17 @@
+# Terms the personal-data scan allows. One per line, matched case-insensitively.
+# Placeholder and example addresses
+example.com
+example.org
+github.com
+users.noreply.github.com
+noreply@anthropic.com
+# The fictional example profile (examples/sample-profile)
+Sam Rivera
+Rivera
+Northwind
+Contoso
+Acme
+Fabrikam
+Alex Morgan
+Hartley
+Wingtip

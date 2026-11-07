@@ -1,0 +1,6 @@
+{
+  "_meta": {
+    "description": "Your own submission rules. Same shape as the product's rules/submission-rules.json; origin is your words."
+  },
+  "rules": []
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "constraints.json and decisions.json",
+  "type": "object",
+  "required": ["items"],
+  "properties": {
+    "items": { "type": "array", "items": {
+      "type": "object",
+      "required": ["id", "kind", "statement", "voice", "as_of"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "kind": { "enum": ["notice-period", "available-from", "contract-end", "salary-floor", "salary-band", "location", "work-pattern", "right-to-work", "clearance", "never-name", "hours", "voice", "targeting", "process", "other"] },
+        "statement": { "type": "string", "minLength": 1 },
+        "names": { "type": "array", "items": { "type": "string" } },
+        "voice": { "enum": ["user", "source"] },
+        "said": { "type": "string" },
+        "source": { "type": "string" },
+        "as_of": { "type": "string", "description": "YYYY-MM-DD, or undated (say so in note)" },
+        "note": { "type": "string" }
+      },
+      "allOf": [
+        { "if": { "properties": { "voice": { "const": "user" } } }, "then": { "required": ["said"] } },
+        { "if": { "properties": { "voice": { "const": "source" } } }, "then": { "required": ["source"] } },
+        { "if": { "properties": { "kind": { "const": "never-name" } } }, "then": { "required": ["names"] } }
+      ]
+    } }
+  }
+}

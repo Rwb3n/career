@@ -1,0 +1,62 @@
+{
+  "role_anchor": {
+    "in": [
+      "Business Analyst",
+      "Systems Analyst",
+      "CRM Analyst"
+    ],
+    "out": [
+      "Project Manager",
+      "Sales Engineer"
+    ],
+    "note": ""
+  },
+  "years_gate": {
+    "apply_up_to": 3,
+    "stretch_up_to": 5
+  },
+  "level": "junior",
+  "domains": {
+    "in": [
+      "logistics",
+      "retail",
+      "public sector"
+    ],
+    "out": [
+      "gambling"
+    ]
+  },
+  "avoid": [],
+  "claim_domains": [
+    "business analysis",
+    "hands-on building"
+  ],
+  "archetypes": [
+    {
+      "id": "arch-ba",
+      "name": "Business Analyst",
+      "select_tags": [
+        "business-analysis",
+        "requirements-gathering",
+        "process-mapping",
+        "workshops"
+      ],
+      "tone": "impact-focused",
+      "include_projects": "relevant",
+      "lead_role": "role-northwind-ba"
+    },
+    {
+      "id": "arch-crm",
+      "name": "CRM Analyst",
+      "select_tags": [
+        "crm",
+        "admin",
+        "automation",
+        "data-quality"
+      ],
+      "tone": "formal",
+      "include_projects": "none",
+      "lead_role": "role-northwind-ba"
+    }
+  ]
+}

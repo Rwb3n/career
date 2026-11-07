@@ -1,0 +1,160 @@
+{
+  "_meta": {
+    "type": "review-lenses",
+    "version": "1.0.0",
+    "purpose": "Reader-perspective checks for composed CV and cover letter text. Sibling to anti-patterns.json. Anti-patterns ask 'does this read as machine-drafted filler?'. Lenses ask 'does this read correctly to a specific reader?'",
+    "advisory": "Lenses are advisory, not hard fails. They can pull against each other: the literal-reader lens strips exactly the idiom that may carry the user's voice. Where two lenses conflict, state the trade-off and let the user decide. A lens pass that flags everything becomes noise."
+  },
+  "lenses": [
+    {
+      "id": "lens-user-voice",
+      "name": "User voice",
+      "question": "Does this sound like the user, or like an assistant imitating them?",
+      "reference": "profile/voice.md: the description of how the user writes, their own sample paragraph, and the running keep and cut list from earlier drafts.",
+      "severity": "high",
+      "checks": [
+        {
+          "flag": "Phrasing the user has already cut",
+          "detail": "Any construction on the cut list in voice.md, or a close variant of it.",
+          "severity": "high"
+        },
+        {
+          "flag": "Self-description adjectives",
+          "detail": "'skilled', 'passionate', 'driven', 'results-oriented'. Describe what happened, not what the user is like.",
+          "severity": "high"
+        },
+        {
+          "flag": "Formal verb where a plain one exists",
+          "detail": "'ascertain', 'elicit', 'conduct discovery' where a plain writer would say 'find out' or 'ask what they needed'. Check the user's own sample for which register they use.",
+          "severity": "medium"
+        },
+        {
+          "flag": "Subordinate-clause scaffolding",
+          "detail": "Long multi-clause sentences where the user's sample chains short declaratives.",
+          "severity": "medium"
+        },
+        {
+          "flag": "Consequence stated abstractly",
+          "detail": "'mitigated downstream risk' where the user would name the concrete result, such as 'fewer orders went out wrong'.",
+          "severity": "low"
+        }
+      ]
+    },
+    {
+      "id": "lens-literal-reader",
+      "name": "Literal reader",
+      "question": "Does every sentence mean what it literally says?",
+      "severity": "high",
+      "checks": [
+        {
+          "flag": "Idiom",
+          "detail": "'hit the ground running', 'wear many hats', 'get across the line'. Literally false.",
+          "severity": "high"
+        },
+        {
+          "flag": "Spatial metaphor for abstract things",
+          "detail": "'what is in front of them', 'moving the needle', 'at a high level'.",
+          "severity": "medium"
+        },
+        {
+          "flag": "Vague quantifier next to a precise one",
+          "detail": "'loads of rework' next to '12%'. Mixing registers makes the reader unsure which number to trust.",
+          "severity": "high"
+        },
+        {
+          "flag": "Vague outcome verbs",
+          "detail": "'when things fall over', 'issues arose'. Fell over how? Which issues? Specify.",
+          "severity": "medium"
+        },
+        {
+          "flag": "Filler adjectives doing rhetorical work",
+          "detail": "'real results', 'meaningful change', 'genuine difference'.",
+          "severity": "low"
+        }
+      ]
+    },
+    {
+      "id": "lens-front-load",
+      "name": "Skimming reader with low working memory",
+      "question": "Does the key fact arrive before the reader decides whether to keep reading?",
+      "severity": "medium",
+      "checks": [
+        {
+          "flag": "Key number or claim buried past sentence two",
+          "detail": "A reader may get four words in before deciding. Lead with the concrete thing.",
+          "severity": "high"
+        },
+        {
+          "flag": "Multiple abstractions held before the sentence resolves",
+          "detail": "Three concepts stacked before the verb lands means a high working-memory cost.",
+          "severity": "medium"
+        },
+        {
+          "flag": "Uniform paragraph density",
+          "detail": "Vary sentence length. Short sentences should carry the weight.",
+          "severity": "low"
+        },
+        {
+          "flag": "Dense prose block amid bullets",
+          "detail": "A five-sentence paragraph in a bulleted document reads as a wall.",
+          "severity": "medium"
+        }
+      ]
+    },
+    {
+      "id": "lens-non-native-english",
+      "name": "Reader whose first language is not English",
+      "question": "Does this survive a reader whose first language is not English?",
+      "severity": "medium",
+      "applies_when": "The target employer is headquartered outside the English-speaking world, or the job description states English proficiency as a requirement rather than assuming it.",
+      "checks": [
+        {
+          "flag": "Idiom",
+          "detail": "The first thing lost across a language boundary. Overlaps lens-literal-reader; when both apply, the case for cutting is strong.",
+          "severity": "high"
+        },
+        {
+          "flag": "Phrasal verbs where a single verb exists",
+          "detail": "'find out' versus 'determine' is a real trade-off against the user's voice. Flag the conflict; do not auto-resolve.",
+          "severity": "low"
+        },
+        {
+          "flag": "Cultural or sporting reference",
+          "detail": "References to a national sport, institution or television programme that a reader from elsewhere would not recognise.",
+          "severity": "medium"
+        },
+        {
+          "flag": "Region-specific abbreviation without expansion",
+          "detail": "Names of national bodies, schemes or contract types abbreviated without the full form. Expand on first use.",
+          "severity": "medium"
+        }
+      ]
+    }
+  ],
+  "known_conflicts": [
+    {
+      "between": [
+        "lens-user-voice",
+        "lens-literal-reader"
+      ],
+      "description": "A user's natural register may include vivid idiom and informal phrasing. The literal-reader lens strips exactly that. Text cannot be fully optimised for both.",
+      "resolution": "State the trade-off and let the user choose. Default: where the non-native-English lens applies, favour the literal reading. Otherwise, favour voice."
+    },
+    {
+      "between": [
+        "lens-user-voice",
+        "ats-optimisation"
+      ],
+      "description": "ATS scoring rewards keyword-dense, uniform skills lists. Those read as machine-generated to a human.",
+      "resolution": "Where the employer has no conventional ATS (its own careers site, test-based selection, a direct email), the ATS justification weakens and voice should win."
+    }
+  ],
+  "usage": {
+    "where_to_run": [
+      "Atom extraction: check atom text when it is created, so drafting tells do not enter the library and spread into every later composition.",
+      "CV composition: check the assembled document, including bullets.",
+      "Cover letter composition: full text, all lenses."
+    ],
+    "atom_text_note": "User-authored atom text is protected from rewriting without approval (submission rule SR-12). It is not exempt from the lens pass: report the flag and let the user decide. Atom text the assistant drafted may be amended for register provided no claim changes."
+  }
+}

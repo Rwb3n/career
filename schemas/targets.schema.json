@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "targets.json",
+  "type": "object",
+  "required": ["role_anchor", "claim_domains"],
+  "properties": {
+    "role_anchor": { "type": "object", "required": ["in"], "properties": {
+      "in": { "type": "array", "items": { "type": "string" } },
+      "out": { "type": "array", "items": { "type": "string" } }, "note": { "type": "string" } } },
+    "years_gate": { "type": "object", "properties": { "apply_up_to": { "type": "number" }, "stretch_up_to": { "type": "number" } } },
+    "level": { "enum": ["entry", "junior", "mid", "senior", "lead"] },
+    "domains": { "type": "object", "properties": { "in": { "type": "array", "items": { "type": "string" } }, "out": { "type": "array", "items": { "type": "string" } } } },
+    "avoid": { "type": "array", "items": { "type": "string" } },
+    "claim_domains": { "type": "array", "items": { "type": "string" } },
+    "archetypes": { "type": "array", "items": { "type": "object", "required": ["id", "name", "select_tags"], "properties": {
+      "id": { "type": "string" }, "name": { "type": "string" }, "select_tags": { "type": "array", "items": { "type": "string" } },
+      "tone": { "type": "string" }, "include_projects": { "enum": ["none", "relevant", "all"] }, "lead_role": { "type": "string" } } } }
+  }
+}

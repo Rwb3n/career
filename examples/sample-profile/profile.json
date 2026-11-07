@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "created": "2026-01-10",
+  "identity": {
+    "name": "Sam Rivera",
+    "headline": "Business Analyst",
+    "location": "Leeds, UK",
+    "email": "sam.rivera@example.com",
+    "phone": "",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/example"
+      }
+    ],
+    "languages": [
+      "English (native)",
+      "Spanish (conversational)"
+    ]
+  },
+  "settings": {
+    "paper": "A4",
+    "spelling": "en-GB",
+    "cv_max_pages": 2,
+    "cl_max_pages": 1,
+    "output": "docx",
+    "rules_on": [],
+    "rules_off": []
+  },
+  "welcome_done": true
+}

@@ -1,0 +1,47 @@
+{
+  "items": [
+    {
+      "id": "notice-period",
+      "kind": "notice-period",
+      "statement": "4 weeks",
+      "voice": "user",
+      "said": "four weeks notice",
+      "as_of": "2026-01-10"
+    },
+    {
+      "id": "salary-floor",
+      "kind": "salary-floor",
+      "statement": "GBP 38,000",
+      "voice": "user",
+      "said": "nothing under 38",
+      "as_of": "2026-01-10"
+    },
+    {
+      "id": "location",
+      "kind": "location",
+      "statement": "Leeds or remote; up to 3 office days a week",
+      "voice": "user",
+      "said": "leeds or remote, three days in max",
+      "as_of": "2026-01-10"
+    },
+    {
+      "id": "never-name",
+      "kind": "never-name",
+      "statement": "Internal names covered by the employer's confidentiality clause",
+      "names": [
+        "Project Bluebird"
+      ],
+      "voice": "source",
+      "source": "employment contract, confidentiality clause",
+      "as_of": "2026-01-10"
+    },
+    {
+      "id": "hours",
+      "kind": "hours",
+      "statement": "About 4 hours a week for applications",
+      "voice": "user",
+      "said": "maybe 4 hours a week",
+      "as_of": "2026-01-10"
+    }
+  ]
+}

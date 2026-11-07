@@ -1,0 +1,345 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "recipe.schema.json",
+  "title": "Composition recipe",
+  "description": "profile/packs/<slug>/recipe.json: which atoms a CV (and its cover letter) was built from, why, what was left as gaps, and what the quality gates found. A recipe makes a composition reproducible and traceable.",
+  "type": "object",
+  "required": ["meta", "selections", "gaps", "scan"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": { "$ref": "#/$defs/meta" },
+    "selections": { "$ref": "#/$defs/selections" },
+    "gaps": { "$ref": "#/$defs/gaps" },
+    "scan": { "$ref": "#/$defs/scan" },
+    "cover_letter": { "$ref": "#/$defs/cover_letter" },
+    "notes": {
+      "description": "Free notes about this composition that fit nowhere else.",
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "$defs": {
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "atom_id": {
+      "description": "An id from atoms.json.",
+      "type": "string",
+      "pattern": "^(b|sk|proj|cert|edu|pf|role)-[a-z0-9][a-z0-9-]*$"
+    },
+    "bullet_id": { "type": "string", "pattern": "^b-[a-z0-9][a-z0-9-]*$" },
+    "result": {
+      "type": "string",
+      "enum": ["PASS", "FAIL", "PASS WITH FLAG", "BORDERLINE", "N/A"]
+    },
+
+    "meta": {
+      "type": "object",
+      "required": ["created", "target_role", "target_company", "archetype", "tone", "match_confidence", "jd_source", "ledger_slug", "decisions", "ready_to_send"],
+      "additionalProperties": false,
+      "properties": {
+        "created": { "$ref": "#/$defs/date" },
+        "status": {
+          "description": "Where the composition stands. Only the user's sign-off moves it to ready.",
+          "type": "string",
+          "enum": ["draft", "edited by user", "ready", "sent", "abandoned"]
+        },
+        "target_role": { "type": "string", "minLength": 1 },
+        "target_company": { "type": "string", "minLength": 1 },
+        "archetype": {
+          "description": "An archetype id from targets.json.",
+          "type": "string"
+        },
+        "tone": {
+          "type": "string",
+          "enum": ["formal", "candid", "bridging", "impact-focused", "minimal", "technical", "plain"]
+        },
+        "match_confidence": {
+          "type": "string",
+          "enum": ["strong", "stretch", "speculative"]
+        },
+        "match_note": {
+          "description": "Where the match is strong and where it stretches, in a sentence or two.",
+          "type": "string"
+        },
+        "triage": {
+          "description": "Result of checking the JD against targets.json and constraints.json before matching.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "role_anchor": { "type": "string", "enum": ["in", "out", "neither"] },
+            "years": { "type": "string", "enum": ["within", "stretch", "beyond", "not stated"] },
+            "flags": { "type": "array", "items": { "type": "string" } },
+            "user_decision": { "type": "string" }
+          }
+        },
+        "jd_source": {
+          "description": "The JD's URL or its path in profile/jobs/. Say if the text is a paraphrase rather than the original.",
+          "type": "string"
+        },
+        "ats_platform": { "type": "string" },
+        "ledger_slug": {
+          "description": "The slug this application uses in ledger.jsonl (normally the composition folder name).",
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "decisions": {
+          "description": "Ids from decisions.json that shaped this composition.",
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "ready_to_send": {
+          "description": "False until the user has edited the composition themselves (when settings.human_touch_before_send is true) and explicitly signed it off. The product never sends anything.",
+          "type": "boolean"
+        },
+        "signed_off": {
+          "description": "Set only when the user signs off: when, and their words.",
+          "type": "object",
+          "required": ["as_of", "said"],
+          "additionalProperties": false,
+          "properties": {
+            "as_of": { "$ref": "#/$defs/date" },
+            "said": { "type": "string", "minLength": 1 },
+            "user_edited": { "type": "boolean" }
+          }
+        }
+      },
+      "if": { "properties": { "ready_to_send": { "const": true } } },
+      "then": { "required": ["signed_off"] }
+    },
+
+    "selections": {
+      "type": "object",
+      "required": ["roles"],
+      "additionalProperties": false,
+      "properties": {
+        "fragments": { "type": "array", "items": { "type": "string", "pattern": "^pf-" }, "uniqueItems": true },
+        "certifications": { "type": "array", "items": { "type": "string", "pattern": "^cert-" }, "uniqueItems": true },
+        "education": { "type": "array", "items": { "type": "string", "pattern": "^edu-" }, "uniqueItems": true },
+        "roles": {
+          "description": "Role id -> the title used and the bullets chosen, in CV order.",
+          "type": "object",
+          "propertyNames": { "pattern": "^role-[a-z0-9][a-z0-9-]*$" },
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "title_variant": {
+                "description": "From title_variants or title_canonical in atoms.json. Never invented.",
+                "type": "string"
+              },
+              "bullets": {
+                "type": "array",
+                "items": { "$ref": "#/$defs/bullet_id" }
+              },
+              "placement": {
+                "description": "How the role appears if not as a full entry, e.g. 'Earlier roles line'.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "projects": { "type": "array", "items": { "type": "string", "pattern": "^proj-" }, "uniqueItems": true },
+        "skills": { "type": "array", "items": { "type": "string", "pattern": "^sk-" }, "uniqueItems": true },
+        "summary_trace": {
+          "description": "Summary sentence -> the atoms or fragments it rests on.",
+          "type": "object",
+          "additionalProperties": { "type": "array", "items": { "$ref": "#/$defs/atom_id" } }
+        },
+        "placeholders": {
+          "description": "Visible [USER: ...] markers the user must fill or delete before sending.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["location", "needed"],
+            "additionalProperties": false,
+            "properties": {
+              "location": { "type": "string" },
+              "needed": { "type": "string" }
+            }
+          }
+        },
+        "user_text": {
+          "description": "Text the user supplied that is not yet an atom. Should become one through the recall procedure (recall.md).",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["location", "text", "source"],
+            "additionalProperties": false,
+            "properties": {
+              "location": { "type": "string" },
+              "text": { "type": "string" },
+              "source": { "type": "string" }
+            }
+          }
+        },
+        "compose_time_edits": {
+          "description": "Changes to atom text made for this composition only. The atom itself is unchanged.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["atom", "edit", "reason", "approved_by_user"],
+            "additionalProperties": false,
+            "properties": {
+              "atom": { "$ref": "#/$defs/atom_id" },
+              "edit": { "type": "string" },
+              "reason": { "type": "string" },
+              "approved_by_user": {
+                "description": "False only for same-session text the system drafted itself and tidied without changing a claim.",
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "excluded": {
+          "description": "Atoms considered and left out on purpose.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "reason"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "$ref": "#/$defs/atom_id" },
+              "reason": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+
+    "gaps": {
+      "type": "object",
+      "required": ["bridged", "cover_letter", "unresolved"],
+      "additionalProperties": false,
+      "properties": {
+        "bridged": {
+          "description": "JD requirement -> atoms that partly cover it.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/atom_id" },
+            "minItems": 1
+          }
+        },
+        "cover_letter": {
+          "description": "Requirements the letter must address.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "unresolved": {
+          "description": "Requirements with no evidence, left as gaps on purpose.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "recommended_extract_atoms": {
+          "description": "Evidence worth capturing with the recall procedure (recall.md).",
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "scan": {
+      "type": "object",
+      "required": ["anti_pattern_flags", "gate", "never_name_check"],
+      "additionalProperties": false,
+      "properties": {
+        "anti_pattern_flags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "verdict", "location"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "description": "Pattern id from rules/anti-patterns.json or rules-local.json.", "type": "string" },
+              "verdict": { "type": "string", "enum": ["HIT", "BORDERLINE"] },
+              "location": { "type": "string" },
+              "decision": { "type": "string" }
+            }
+          }
+        },
+        "lens_flags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["lens", "location"],
+            "additionalProperties": false,
+            "properties": {
+              "lens": { "description": "Lens id from rules/review-lenses.json.", "type": "string" },
+              "location": { "type": "string" },
+              "flag": { "type": "string" },
+              "decision": { "type": "string" }
+            }
+          }
+        },
+        "gate": {
+          "description": "Rule id (from rules/submission-rules.json or rules-local.json) -> result. Every rule gets an entry.",
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "required": ["result"],
+            "additionalProperties": false,
+            "properties": {
+              "result": { "$ref": "#/$defs/result" },
+              "note": { "type": "string" }
+            }
+          }
+        },
+        "never_name_check": {
+          "type": "object",
+          "required": ["result", "names_checked"],
+          "additionalProperties": false,
+          "properties": {
+            "result": { "type": "string", "enum": ["PASS", "FAIL"] },
+            "names_checked": { "type": "integer", "minimum": 0 },
+            "hits": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "output_checks": {
+          "description": "Results of checking the exported files: page count, paper size, placeholders, characters, links.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["file", "check", "result"],
+            "additionalProperties": false,
+            "properties": {
+              "file": { "type": "string" },
+              "check": { "type": "string" },
+              "result": { "$ref": "#/$defs/result" },
+              "note": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+
+    "cover_letter": {
+      "type": "object",
+      "required": ["file", "gaps_addressed", "primary_atoms"],
+      "additionalProperties": false,
+      "properties": {
+        "file": { "type": "string", "pattern": "^CL-[a-z0-9][a-z0-9-]*\\.md$" },
+        "gaps_addressed": { "type": "array", "items": { "type": "string" } },
+        "primary_atoms": { "type": "array", "items": { "$ref": "#/$defs/atom_id" } },
+        "word_count": { "type": "integer", "minimum": 0 },
+        "employer_facts": {
+          "description": "Every statement about the employer in the letter, with its primary source.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["claim", "source"],
+            "additionalProperties": false,
+            "properties": {
+              "claim": { "type": "string" },
+              "source": { "type": "string" }
+            }
+          }
+        },
+        "scan": { "$ref": "#/$defs/scan" }
+      }
+    }
+  }
+}

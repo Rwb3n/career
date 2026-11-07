@@ -1,0 +1,293 @@
+{
+  "_meta": {
+    "type": "submission-rules",
+    "version": "1.0.0",
+    "description": "Hard gates for any text the user will send to an employer: CVs, cover letters, application answers, and the atom text they are built from. Each rule exists because the failure it names is common in assisted drafting and costs interviews.",
+    "how_to_use": "Run every rule against the assembled document before showing it to the user. Report each rule as PASS or FAIL, quoting the offending text for every FAIL. Never present a document with an unreported FAIL. Rules with severity 'blocking' must pass before anything is sent; 'high' failures are fixed unless the user explicitly keeps the text. A rule with \"default\": false runs only when its id is in profile.json settings.rules_on; settings.rules_off lists product rules the user has switched off. After these, run the user's own rules from profile/rules-local.json; a local rule can add a check but cannot switch off a product rule."
+  },
+  "rules": [
+    {
+      "id": "SR-01",
+      "name": "No vanity counts",
+      "severity": "blocking",
+      "default": true,
+      "rule": "Never compose a number that measures the volume of output rather than an outcome.",
+      "banned": [
+        "count of deliverables",
+        "count of specifications",
+        "count of test scenarios",
+        "count of findings",
+        "count of requirements",
+        "count of register or backlog items",
+        "count of documents produced",
+        "count of pages or articles written"
+      ],
+      "permitted": [
+        "measured outcomes (duplicate records fell from 12% to 3%; onboarding time halved)",
+        "external validation (an award, an adopted standard, public usage of something the user built)",
+        "money and scale (a programme budget, revenue generated, running cost per month)"
+      ],
+      "test": "Does the number describe something that changed in the world, or something the user produced? If produced, cut it.",
+      "why": "Output counts tell the reader how much was written, not what was achieved, and read as padding."
+    },
+    {
+      "id": "SR-02",
+      "name": "No flat comma-run skills list",
+      "severity": "blocking",
+      "default": true,
+      "rule": "Skills must be grouped into 3 to 5 labelled lines with bold category labels. Never a single comma-separated run.",
+      "detail": "Target 12 to 20 items. Cut soft skills entirely. Named tools and named techniques only.",
+      "banned": [
+        "Analytical reasoning",
+        "Problem solving",
+        "Independent task management",
+        "Stakeholder management",
+        "Technical writing",
+        "First-principles thinking",
+        "Buzzword labels with no named tool or technique behind them"
+      ],
+      "permitted": [
+        "**Analysis:** requirements gathering, process modelling, fit-gap analysis",
+        "**Data:** data cleansing, reporting, SQL"
+      ],
+      "test": "Is every item a named tool or a named technique, grouped under a label? Would a reader stop reading partway through the line?",
+      "why": "A long comma run is unreadable to a human, and soft-skill labels are claimed by everyone and prove nothing."
+    },
+    {
+      "id": "SR-03",
+      "name": "Every claim must survive a second question",
+      "severity": "blocking",
+      "default": true,
+      "rule": "Before composing any claim, ask whether the user could narrate it under questioning. If not, it is indefensible and must not appear.",
+      "detail": "Applies especially to claims about scope, duration, and what was resolved versus what was only mapped, planned or started.",
+      "banned": [
+        "Overhauled ten years of legacy configuration (when the user spent three months reading it)",
+        "Implemented a new approval workflow (when only the requirements were drafted)"
+      ],
+      "permitted": [
+        "Read the existing configuration and documented how the parts were connected",
+        "Drafted the requirements for a new approval workflow"
+      ],
+      "test": "Imagine an interviewer asks 'how exactly?' and then 'and what happened next?'. Can the user answer both from memory without retreating from the claim?",
+      "why": "A claim that collapses under one follow-up question costs more credibility than the claim ever earned."
+    },
+    {
+      "id": "SR-04",
+      "name": "Verify live claims",
+      "severity": "blocking",
+      "default": true,
+      "rule": "Never claim a project is live, running, downloadable or available without checking the project atom's `live` field and `url`, and confirming the link works.",
+      "banned": [
+        "A link to a project site that no longer resolves",
+        "Live at <url> (when the atom says live: false)"
+      ],
+      "permitted": [
+        "Source code at <url> (when the repository exists and is public)",
+        "A prototype, now retired"
+      ],
+      "test": "Is `live` true on the atom, and does the URL open today?",
+      "why": "A dead link on a CV is worse than no link: it suggests the rest of the document is out of date too."
+    },
+    {
+      "id": "SR-05",
+      "name": "No indefinite-subject constructions",
+      "severity": "blocking",
+      "default": false,
+      "rule": "Never build a sentence around nobody, someone, or people as the subject. Subjects are I, or the thing itself.",
+      "banned": [
+        "Nobody tracked the backlog",
+        "the deadline someone had agreed",
+        "a process people had forgotten about"
+      ],
+      "permitted": [
+        "The backlog had no tracking",
+        "I wrote down the forgotten process"
+      ],
+      "test": "Is the grammatical subject a vague absent person? Rewrite with I or the thing itself as the subject.",
+      "why": "Prevents sentences that blame an absent, unnamed person; this is a personal style preference rather than a general standard, so it is off by default and belongs in settings.rules_on when the user shares it."
+    },
+    {
+      "id": "SR-06",
+      "name": "No empty positioning sentences",
+      "severity": "blocking",
+      "default": true,
+      "rule": "Every sentence must carry information the reader cannot get elsewhere in the document. If the plain-language version of a sentence is too obvious to include, the sentence was carrying tone rather than content. Cut it.",
+      "banned": [
+        "I bring a fresh perspective to every challenge",
+        "My advantage is not experience but curiosity",
+        "I see what others miss"
+      ],
+      "test": "Rewrite the sentence in the plainest possible words. If the plain version is embarrassing or empty, the original was decoration.",
+      "why": "Positioning sentences dress up an empty claim in confident phrasing, and readers recognise them as filler."
+    },
+    {
+      "id": "SR-07",
+      "name": "No AI-drafting tells",
+      "severity": "high",
+      "default": true,
+      "rule": "Scan for and remove dash chains (raw double hyphens, or more than one em dash per paragraph), contrast-hook tails (X rather than Y, used to perform insight), consecutive tricolon rhythm (three-item lists in consecutive bullets or sentences), duplicate sentence openers, and mixed spelling conventions.",
+      "detail": "Spelling follows profile.json settings.spelling throughout.",
+      "test": "Read the document for rhythm alone. Do several sentences share the same shape, the same opener, or the same three-beat list?",
+      "why": "Recruiters now read for machine-drafting patterns, and one recognised tell discounts the whole document."
+    },
+    {
+      "id": "SR-08",
+      "name": "Consistent tense",
+      "severity": "high",
+      "default": true,
+      "rule": "Past tense throughout. Where work is genuinely in flight (the role's is_current is true), mark it with an explicit word (Currently, In progress) rather than a present participle. Mixed tense within a single role is a drafting tell.",
+      "test": "Does any bullet on a finished role use present tense? Does any in-flight work rely on an '-ing' form instead of an explicit marker?",
+      "why": "Mixed tense makes the reader unsure what is finished and what is ongoing, and signals careless assembly."
+    },
+    {
+      "id": "SR-09",
+      "name": "No duplicate projects",
+      "severity": "high",
+      "default": true,
+      "rule": "If two project atoms describe the same work (renamed, split, or recorded twice), compose them as one entry. Check the project atoms' descriptions and notes before composing more than one.",
+      "test": "Could a reader recognise two entries as the same piece of work under different names?",
+      "why": "Listing one piece of work twice reads as padding and invites the reader to question what else is inflated."
+    },
+    {
+      "id": "SR-10",
+      "name": "Claim domains must not blur",
+      "severity": "high",
+      "default": true,
+      "rule": "Every claim belongs to exactly one of the claim domains in profile/targets.json claim_domains. A claim must not carry terms from a domain it does not belong to. Check the claim_domain field on each atom before composing.",
+      "banned": [
+        "Describing delivery of a programme about a technology with words that imply the user built that technology"
+      ],
+      "test": "For each claim, name its one domain. Does it use vocabulary that belongs to another domain?",
+      "why": "Borrowed vocabulary turns a true claim into an unearned one, and the reader assumes skills the user cannot back up."
+    },
+    {
+      "id": "SR-11",
+      "name": "User voice",
+      "severity": "high",
+      "default": true,
+      "rule": "No self-description adjectives (skilled, passionate, driven, results-oriented). Describe what happened, not what the user is like. Plain verbs over formal ones. Short declaratives rather than subordinate-clause scaffolding. Match the register in profile/voice.md.",
+      "banned": [
+        "Highly skilled and results-oriented analyst",
+        "Leveraged cross-functional synergies to ascertain requirements"
+      ],
+      "permitted": [
+        "Worked out what each team needed and whether the system could do it"
+      ],
+      "test": "Compare against the samples and the keep and cut list in profile/voice.md. Would the user say this sentence out loud?",
+      "why": "Text that does not sound like the user falls apart at interview, when the reader meets the real person."
+    },
+    {
+      "id": "SR-12",
+      "name": "Atom text boundary",
+      "severity": "blocking",
+      "default": true,
+      "rule": "User-authored atom text is never rewritten without the user's explicit approval. Atom text the assistant drafted may be amended for register and readability provided no claim changes. Any amendment records amended and amend_reason on the atom.",
+      "test": "Who wrote this atom? If the user, has the user approved this change? Does the amendment change any claim?",
+      "why": "Protecting the user's own words keeps claims accurate, while allowing the assistant's drafting to be corrected stops its errors spreading into every later composition."
+    },
+    {
+      "id": "SR-13",
+      "name": "No performing",
+      "severity": "blocking",
+      "default": true,
+      "rule": "Cut any sentence or clause whose job is to signal something about the writer rather than state a fact. If removing it loses no information, it was performing.",
+      "sub_checks": [
+        "Name-drops. If the reader does not know the name it says nothing; if they do, it is signalling. State the idea instead.",
+        "Emphasis qualifiers. 'in a real sense', 'genuinely', 'truly', 'actually' where the plain sentence already carries it.",
+        "Comparisons to other candidates or other people's work. 'few candidates would mention this', 'unlike most applicants'.",
+        "Self-aware asides. Any clause whose content is the writer noticing their own move.",
+        "Spelling out what a fact proves. If the fact is stated, the reader draws the conclusion."
+      ],
+      "test": "Delete the clause. If no fact is lost, it was performing. Leave it deleted.",
+      "why": "Clauses that signal cleverness or candour instead of stating facts read as self-promotion and waste the reader's attention."
+    },
+    {
+      "id": "SR-14",
+      "name": "No desire statements in closing position",
+      "severity": "blocking",
+      "default": true,
+      "rule": "Never close a cover letter with a statement of what the user wants. 'What I want is...', 'I am looking for...', 'I would welcome...' are all weak in final position regardless of what follows them.",
+      "detail": "End on a fact, on work done, or stop where the evidence stops. A letter does not need a closing sentiment.",
+      "banned": [
+        "What I am looking for is a team where I can grow.",
+        "I would welcome the chance to discuss this further."
+      ],
+      "permitted": [
+        "Ending on the last piece of evidence, with no closing sentence"
+      ],
+      "test": "Read the last sentence alone. Is it a fact, or a wish?",
+      "why": "The last line is what the reader remembers, and a wish in that position leaves them with need rather than evidence."
+    },
+    {
+      "id": "SR-15",
+      "name": "No self-deprecation",
+      "severity": "blocking",
+      "default": true,
+      "rule": "Never compose a claim that positions the user below others. 'colleagues far more able than me', 'I still have a lot to learn', 'despite my limited experience'.",
+      "detail": "Underclaiming is a calibration failure in exactly the same way overclaiming is. Both are confidence not matching the evidence.",
+      "sub_checks": [
+        "A deficit restated in closing position is self-deprecation even when the sentence is true and even when a positive clause follows it. The last thing a reader lands on is what the letter leaves them with.",
+        "Count how many times a gap appears in the document. Named once, early, is honest. Named twice is defensive. Named three times is pleading.",
+        "A concession-then-assertion construction (I do not have X, but I do have Y) still leads with the deficit. Invert it or cut it."
+      ],
+      "banned": [
+        "I know I do not have direct experience yet, but I learn quickly.",
+        "working alongside people far more experienced than me"
+      ],
+      "test": "Where does each mention of a gap sit, and how many are there? Does the document end on a deficit?",
+      "why": "A document that keeps pointing at its own gaps persuades the reader to agree with it."
+    },
+    {
+      "id": "SR-16",
+      "name": "Verify every claim about the employer",
+      "severity": "blocking",
+      "default": true,
+      "rule": "Any statement about what the target company does, buys, believes or values must be checked against a primary source before composing. Never assert a parallel between the user's work and the employer's without verifying the employer half.",
+      "detail": "Where a genuine difference exists, state it. Naming the difference is stronger than implying a parallel, because the reader already knows their own business.",
+      "banned": [
+        "My scheduling tool is a smaller version of what your platform does (when the employer's platform solves a different problem for a different customer)"
+      ],
+      "test": "Which primary source (the employer's own site, filings, product pages, the job description) confirms this statement about them?",
+      "why": "A false claim about the reader's own business is the fastest way to lose them."
+    },
+    {
+      "id": "SR-17",
+      "name": "Lens the last thing written",
+      "severity": "blocking",
+      "default": true,
+      "rule": "Run the full lens pass (rules/review-lenses.json) over any paragraph written after the gate was last run, and over the paragraph the composer is most pleased with. Those are the two most likely to be unedited.",
+      "detail": "Content quality and prose quality are independent. A paragraph can carry the strongest material in the document and still be the worst-written thing in it.",
+      "test": "Which paragraph was written or changed last? Which one feels strongest? Has each been through every lens since?",
+      "why": "Late additions and favourite paragraphs escape review because the composer trusts them, so they carry the most unchecked errors."
+    },
+    {
+      "id": "SR-18",
+      "name": "Re-check rules the composer has already applied",
+      "severity": "high",
+      "default": true,
+      "rule": "Before presenting, re-scan for every pattern already removed earlier in the same session. Removing a construction once does not prevent reintroducing it.",
+      "test": "List every pattern removed this session. Search the final text for each one again.",
+      "why": "Composers reintroduce the exact patterns they just removed, because the habit that produced them has not changed."
+    }
+  ],
+  "pre_submission_checklist": [
+    "SR-01 No vanity counts. Every number describes a change in the world, not output volume.",
+    "SR-02 Skills grouped into labelled lines. No soft skills.",
+    "SR-03 Every claim survives a second question.",
+    "SR-04 No unverified live or running claims.",
+    "SR-05 No indefinite-subject sentences (if switched on).",
+    "SR-06 No empty positioning sentences.",
+    "SR-07 No AI-drafting tells. One spelling convention, per profile settings.",
+    "SR-08 Consistent past tense. In-flight work explicitly marked.",
+    "SR-09 No duplicate projects.",
+    "SR-10 Claim domains separated.",
+    "SR-11 User voice. No self-description.",
+    "SR-12 Atom amendments within the boundary.",
+    "SR-13 No performing. Delete any clause that loses no fact.",
+    "SR-14 No desire statements in closing position.",
+    "SR-15 No self-deprecation. Underclaiming is a calibration failure.",
+    "SR-16 Every claim about the employer verified against a primary source.",
+    "SR-17 Lens the last-written paragraph and the one you are most pleased with.",
+    "SR-18 Re-scan for patterns already removed earlier in this session."
+  ]
+}

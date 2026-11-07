@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "atoms.json",
+  "type": "object",
+  "required": ["roles", "bullets", "skills"],
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "tone": { "enum": ["formal", "candid", "bridging", "impact-focused", "minimal", "technical", "plain"] }
+  },
+  "properties": {
+    "certifications": { "type": "array", "items": { "type": "object", "required": ["id", "name"], "properties": {
+      "id": { "$ref": "#/$defs/id" }, "name": { "type": "string" }, "issuer": { "type": "string" }, "date": { "type": "string" },
+      "credential_id": { "type": "string" }, "status": { "enum": ["held", "in-progress", "expired"] }, "tags": { "$ref": "#/$defs/tags" } } } },
+    "education": { "type": "array", "items": { "type": "object", "required": ["id", "name"], "properties": {
+      "id": { "$ref": "#/$defs/id" }, "name": { "type": "string" }, "institution": { "type": "string" }, "period": { "type": "string" },
+      "detail": { "type": "string" }, "tags": { "$ref": "#/$defs/tags" } } } },
+    "roles": { "type": "array", "items": { "type": "object", "required": ["id", "company", "title_canonical", "period"], "properties": {
+      "id": { "$ref": "#/$defs/id" }, "company": { "type": "string" }, "company_description": { "type": "string" },
+      "title_canonical": { "type": "string" }, "period": { "type": "string" }, "scope": { "type": "string" },
+      "is_current": { "type": "boolean" }, "tags": { "$ref": "#/$defs/tags" } } } },
+    "bullets": { "type": "array", "items": { "type": "object", "required": ["id", "role_id", "text", "claim_domain"], "properties": {
+      "id": { "$ref": "#/$defs/id" }, "role_id": { "type": "string" }, "text": { "type": "string", "minLength": 1 },
+      "tags": { "$ref": "#/$defs/tags" }, "tone": { "$ref": "#/$defs/tone" }, "strength": { "enum": ["high", "medium", "low"] },
+      "claim_domain": { "type": "string" }, "evidence": { "type": "array", "items": { "type": "string" } }, "confirmed": { "type": "string" },
+      "amended": { "type": "string" }, "amend_reason": { "type": "string" } } } },
+    "projects": { "type": "array", "items": { "type": "object", "required": ["id", "name"], "properties": {
+      "id": { "$ref": "#/$defs/id" }, "name": { "type": "string" }, "type": { "type": "string" }, "platform": { "type": "string" },
+      "url": { "type": "string" }, "live": { "type": "boolean" }, "description": { "type": "string" }, "tags": { "$ref": "#/$defs/tags" },
+      "bullets": { "type": "array", "items": { "type": "string" } }, "claim_domain": { "type": "string" } } } },
+    "skills": { "type": "object", "additionalProperties": { "type": "array", "items": { "type": "object", "required": ["id", "name"], "properties": {
+      "id": { "$ref": "#/$defs/id" }, "name": { "type": "string" }, "detail": { "type": "string" }, "tags": { "$ref": "#/$defs/tags" } } } } },
+    "fragments": { "type": "array", "items": { "type": "object", "required": ["id", "kind", "text"], "properties": {
+      "id": { "$ref": "#/$defs/id" }, "kind": { "enum": ["anchor", "claim", "value"] }, "text": { "type": "string" }, "tags": { "$ref": "#/$defs/tags" } } } },
+    "title_variants": { "type": "object", "additionalProperties": { "type": "array", "items": { "type": "string" } } }
+  }
+}

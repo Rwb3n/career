@@ -1,0 +1,177 @@
+/* CV Template -- Modern Accent
+   Font: Inter (fallback Calibri, Arial)
+   Accent: #1a365d (dark navy)
+   Margins: 14mm top/bottom, 18mm sides
+   Body: 10pt, headings: 12pt, name: 22pt
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+@page {
+    size: A4;
+    margin: 14mm 18mm;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Calibri', 'Arial', sans-serif;
+    font-size: 10pt;
+    line-height: 1.35;
+    color: #1a1a1a;
+}
+
+/* Name -- first h1 */
+h1 {
+    font-size: 22pt;
+    font-weight: 700;
+    color: #1a365d;
+    margin: 0 0 6pt 0;
+    padding: 0 0 6pt 0;
+    border-bottom: 2px solid #1a365d;
+}
+
+/* Header contact block -- structured by export.py post-processing */
+.contact-line {
+    font-size: 9.5pt;
+    color: #333;
+    margin: 6pt 0 2pt 0;
+    letter-spacing: 0.3pt;
+}
+
+.contact-links {
+    font-size: 9pt;
+    color: #555;
+    margin: 2pt 0 2pt 0;
+}
+
+.contact-links a {
+    color: #1a365d;
+}
+
+.contact-lang {
+    font-size: 8.5pt;
+    color: #666;
+    margin: 2pt 0 8pt 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+}
+
+/* Section headings */
+h2 {
+    font-size: 12pt;
+    font-weight: 700;
+    color: #1a365d;
+    margin: 11pt 0 4pt 0;
+    padding: 0 0 3pt 0;
+    border-bottom: 1px solid #1a365d;
+}
+
+/* Sub-section headings (role titles, project names) */
+h3 {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 9pt 0 2pt 0;
+    padding: 5pt 0 0 0;
+    border-top: 1px solid #d0d0d0;
+}
+
+/* Role organisation description (italic line under h3) */
+.role-org {
+    font-style: italic;
+    font-size: 9.5pt;
+    color: #4a4a4a;
+    margin: 0 0 1pt 0;
+}
+
+/* Role date and scope line */
+.role-meta {
+    font-size: 9.5pt;
+    color: #333;
+    margin: 0 0 4pt 0;
+}
+
+/* Body paragraphs */
+p {
+    margin: 0 0 4pt 0;
+}
+
+/* Strong text (dates, labels) */
+strong {
+    font-weight: 600;
+}
+
+/* Italic text (company descriptions) */
+em {
+    font-style: italic;
+    color: #4a4a4a;
+}
+
+/* Links */
+a {
+    color: #1a365d;
+    text-decoration: none;
+}
+
+/* Bullet lists */
+ul {
+    margin: 3pt 0 6pt 0;
+    padding-left: 16pt;
+}
+
+li {
+    margin: 0 0 1pt 0;
+}
+
+/* Horizontal rules -- accent coloured */
+hr {
+    border: none;
+    border-top: 1px solid #1a365d;
+    margin: 8pt 0;
+}
+
+/* Key skills -- paragraph style with bold labels */
+h2 + p {
+    margin: 2pt 0 3pt 0;
+}
+
+/* Never split a paragraph or bullet across a page break */
+p, li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    orphans: 3;
+    widows: 3;
+}
+
+/* Keep a role's org and date lines with its first bullet */
+.role-org, .role-meta, h3 + p, h3 + p + p {
+    break-after: avoid;
+    page-break-after: avoid;
+}
+
+/* Prevent orphans/widows in experience sections */
+h3, h3 + p, h3 + ul {
+    page-break-inside: avoid;
+}
+
+/* Keep role heading with its first bullet */
+h3 {
+    page-break-after: avoid;
+}
+
+/* Keep section heading with content */
+h2 {
+    page-break-after: avoid;
+}
+
+/* Suppress border on first role after section heading (avoid double-line) */
+h2 + h3 {
+    border-top: none;
+    margin-top: 6pt;
+    padding-top: 0;
+}

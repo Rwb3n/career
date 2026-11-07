@@ -1,0 +1,210 @@
+{
+  "certifications": [
+    {
+      "id": "cert-crm-admin",
+      "name": "CRM Administrator",
+      "issuer": "Example Certification Body",
+      "date": "2025-03",
+      "credential_id": "",
+      "status": "held",
+      "tags": [
+        "crm",
+        "admin"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "id": "edu-degree",
+      "name": "BA (Hons) Geography",
+      "institution": "Example University",
+      "period": "2016 to 2019",
+      "detail": "",
+      "tags": [
+        "foundational"
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "id": "role-northwind-ba",
+      "company": "Northwind Traders",
+      "company_description": "Wholesale food distributor, about 400 staff",
+      "title_canonical": "Business Analyst",
+      "period": "2024-06 to present",
+      "scope": "Analyst in a CRM team of 5 serving 120 sales and support users",
+      "is_current": true,
+      "tags": [
+        "business-analysis",
+        "crm"
+      ]
+    },
+    {
+      "id": "role-contoso-support",
+      "company": "Contoso Services",
+      "company_description": "Facilities management company",
+      "title_canonical": "Systems Support Analyst",
+      "period": "2021-02 to 2024-05",
+      "scope": "First and second line support for the CRM and ticketing tools",
+      "is_current": false,
+      "tags": [
+        "support",
+        "crm"
+      ]
+    }
+  ],
+  "bullets": [
+    {
+      "id": "b-nw-account-sequence",
+      "role_id": "role-northwind-ba",
+      "text": "Gave account managers a clear order of work by cutting the account record to the fields their process actually uses; duplicate accounts and data-entry mistakes fell, and the team started asking for the next round of changes.",
+      "tags": [
+        "business-analysis",
+        "process-mapping",
+        "crm",
+        "data-quality"
+      ],
+      "tone": "impact-focused",
+      "strength": "high",
+      "claim_domain": "business analysis",
+      "evidence": [
+        "st-01"
+      ],
+      "confirmed": "2026-01-11",
+      "amended": "",
+      "amend_reason": ""
+    },
+    {
+      "id": "b-nw-requirements",
+      "role_id": "role-northwind-ba",
+      "text": "Ran discovery workshops with the sales and finance leads to agree terms, actors and requirements before anything was built, so the build team worked from one agreed specification.",
+      "tags": [
+        "requirements-gathering",
+        "workshops",
+        "stakeholder-management"
+      ],
+      "tone": "formal",
+      "strength": "medium",
+      "claim_domain": "business analysis",
+      "evidence": [
+        "st-02"
+      ],
+      "confirmed": "2026-01-11",
+      "amended": "",
+      "amend_reason": ""
+    },
+    {
+      "id": "b-cs-knowledge",
+      "role_id": "role-contoso-support",
+      "text": "Rewrote the support how-to guides around the questions users actually asked, so repeat tickets on the same topics dropped and new starters could answer them without escalating.",
+      "tags": [
+        "support",
+        "documentation",
+        "enablement"
+      ],
+      "tone": "plain",
+      "strength": "medium",
+      "claim_domain": "business analysis",
+      "evidence": [
+        "st-03"
+      ],
+      "confirmed": "2026-01-11",
+      "amended": "",
+      "amend_reason": ""
+    },
+    {
+      "id": "b-cs-automation",
+      "role_id": "role-contoso-support",
+      "text": "Built a small set of CRM automations that routed requests to the right queue, so requests stopped waiting for someone to triage them by hand.",
+      "tags": [
+        "automation",
+        "crm",
+        "hands-on"
+      ],
+      "tone": "technical",
+      "strength": "medium",
+      "claim_domain": "hands-on building",
+      "evidence": [
+        "st-04"
+      ],
+      "confirmed": "2026-01-11",
+      "amended": "",
+      "amend_reason": ""
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-ticket-dashboard",
+      "name": "Support ticket dashboard",
+      "type": "personal project",
+      "platform": "Python, SQLite",
+      "url": "",
+      "live": false,
+      "description": "A small dashboard that groups ticket text by topic to show which guides are missing.",
+      "tags": [
+        "python",
+        "data",
+        "hands-on"
+      ],
+      "bullets": [],
+      "claim_domain": "hands-on building"
+    }
+  ],
+  "skills": {
+    "analysis": [
+      {
+        "id": "sk-process-mapping",
+        "name": "Process mapping",
+        "detail": "BPMN maps of current and target processes, used in workshops",
+        "tags": [
+          "process-mapping",
+          "bpmn"
+        ]
+      },
+      {
+        "id": "sk-user-stories",
+        "name": "User stories",
+        "detail": "Stories with acceptance criteria, refined with the build team",
+        "tags": [
+          "agile",
+          "requirements-gathering"
+        ]
+      }
+    ],
+    "tools": [
+      {
+        "id": "sk-crm",
+        "name": "CRM administration",
+        "detail": "Objects, fields, validation and simple automations",
+        "tags": [
+          "crm",
+          "admin"
+        ]
+      },
+      {
+        "id": "sk-jira",
+        "name": "Jira",
+        "detail": "Backlog, sprint boards and service queues",
+        "tags": [
+          "jira",
+          "agile"
+        ]
+      }
+    ]
+  },
+  "fragments": [
+    {
+      "id": "pf-anchor",
+      "kind": "anchor",
+      "text": "Business analyst who makes systems fit the way a team actually works.",
+      "tags": [
+        "business-analysis"
+      ]
+    }
+  ],
+  "title_variants": {
+    "role-contoso-support": [
+      "CRM Support Analyst"
+    ]
+  }
+}

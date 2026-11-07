@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "one line of ledger.jsonl",
+  "type": "object",
+  "required": ["ts", "slug", "stage", "as_of", "voice"],
+  "properties": {
+    "ts": { "type": "string" },
+    "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "stage": { "enum": ["queued", "drafted", "reviewed", "sent", "screen", "interview", "offer", "accepted", "declined", "silent", "killed", "lapsed", "withdrawn"] },
+    "as_of": { "type": "string" },
+    "voice": { "enum": ["user", "source", "assistant"] },
+    "said": { "type": "string" },
+    "source": { "type": "string" },
+    "role": { "type": "string" },
+    "company": { "type": "string" },
+    "note": { "type": "string" },
+    "files": { "type": "object", "additionalProperties": { "type": "string", "pattern": "^[0-9a-f]{64}$" } },
+    "imported": { "type": "boolean" }
+  },
+  "allOf": [
+    { "if": { "properties": { "voice": { "const": "user" } } }, "then": { "required": ["said"] } },
+    { "if": { "properties": { "voice": { "const": "source" } } }, "then": { "required": ["source"] } },
+    { "if": { "properties": { "stage": { "enum": ["reviewed", "sent"] } } }, "then": { "properties": { "voice": { "const": "user" } }, "required": ["said"] } }
+  ]
+}

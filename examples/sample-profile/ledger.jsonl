@@ -1,0 +1,2 @@
+{"ts": "2026-01-12T09:00:00Z", "slug": "ba-fabrikam", "stage": "queued", "as_of": "2026-01-12", "voice": "user", "said": "yes that one", "role": "Business Analyst", "company": "Fabrikam"}
+{"ts": "2026-01-13T18:30:00Z", "slug": "ba-fabrikam", "stage": "killed", "as_of": "2026-01-13", "voice": "user", "said": "its basically a sales role, kill it", "note": "Main job is pre-sales; added to decisions as no-sales-roles"}

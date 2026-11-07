@@ -1,0 +1,20 @@
+{
+  "_meta": {
+    "description": "Sam's own rules."
+  },
+  "rules": [
+    {
+      "id": "LR-01",
+      "name": "No 'passionate'",
+      "severity": "blocking",
+      "rule": "Never describe myself as passionate about anything.",
+      "banned": [
+        "passionate"
+      ],
+      "permitted": [],
+      "test": "Search the text for 'passion'.",
+      "origin": "i hate that word",
+      "default": true
+    }
+  ]
+}
